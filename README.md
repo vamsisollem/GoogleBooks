@@ -1,6 +1,6 @@
 # GoogleBooks
-This project searches for the Google Books using Google books API. When user gives the input, list of books will be displayed. you can see the description of book by clicking on the image of the book. 
-**The below list of tasks are accomplished**
+This project searches for the Google Books using Google books API. When user gives the input, list of books will be displayed. you can see the description of book by clicking on the image of the book. <br>
+## The below list of tasks are accomplished**
   You should include pagination, showing only 10 results at a time.
   Each result should be formatted as First author [, second author [, third author...]] - Title
   You should be able to click a result and it should expand to show its description if one exists. If there is no description, use your own     judgment.
