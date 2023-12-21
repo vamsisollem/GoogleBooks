@@ -49,6 +49,7 @@ function displayResults(Bookdata) {
     
         pageContainer.appendChild(pagination); //appending the paginations
     }
+    //appending the elements created dynamicaaly to the results container
     const results = document.getElementById('results'); 
     const numberOfResults = document.createElement('h3');
     numberOfResults.innerHTML = `Number of Results: ${Bookdata.totalItems}`;
