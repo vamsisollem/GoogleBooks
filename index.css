@@ -1,0 +1,47 @@
+body{
+    margin:0;
+    padding:0;
+    background-color:#f1f1f1;
+}
+.container{
+    max-width:70%;
+    margin:40px auto;
+    padding:20px;
+    text-align:center;
+}
+.input-group input[type="text"].form-control:focus {
+    box-shadow: none;
+  }
+#results{
+    margin-top:20px;
+    background-color: #f1f1ff;
+}
+#pagination{
+    display:block;
+}
+
+h3{
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+.bookDisplay{
+    padding:10px;
+    margin:10px;
+    background-color: white;
+}
+#showDescription{
+    display: none;
+}
+.active {
+    background: black;
+    color: white;
+}
+.buttonstyle{
+    
+    color:black;
+    outline:none;
+}
+.pagination-btn{
+    border:1px solid black;
+    padding:5px;
+}
