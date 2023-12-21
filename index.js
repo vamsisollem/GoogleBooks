@@ -25,21 +25,8 @@ function displayResults(Bookdata) {
     const totalPages = Bookdata.totalItems / resultsPerPage; // calculating total pages
     let activepage = parseInt(urlParams.get('startIndex')) ?? 0; // active page
     let countOfPages = activepage;
-    if(activepage === 0){
-       var startIndex = 0;
-       countOfPages = 1;
-    }
-    else if(activepage === 1){
-        var startIndex = 0;
-    }
-    else if(activepage === 2){
-        var startIndex = 1;
-    }
-    else{
-        var startIndex = parseInt(urlParams.get('startIndex')) - 3;
-    }
-    //let startIndex = activepage == 0 ? 0: parseInt(urlParams.get('startIndex')) - 1 ;
-    let displayMaxPages = countOfPages + 3 >  totalPages ? totalPages : countOfPages + 3; //displaying max pages based on the calculations    
+    var startIndex = activepage > 2 ? parseInt(urlParams.get('startIndex')) - 3 : 0; //checking if activepageindex is more than 2, then only do -3 otherwise start index will be alwasy 0
+    let displayMaxPages = countOfPages + 3  >  totalPages ? totalPages : activepage > 2 ? countOfPages + 3 : 6; //displaying max pages based on the calculations     
     const pageContainer = document.getElementById('pagination'); //pagination wrapper/container
     pageContainer.classList.add('buttonStyle');
     pageContainer.innerHTML = ''; //clearing old paginations before displaying new one
@@ -65,22 +52,21 @@ function displayResults(Bookdata) {
     const results = document.getElementById('results'); 
     const numberOfResults = document.createElement('h3');
     numberOfResults.innerHTML = `Number of Results: ${Bookdata.totalItems}`;
-    const endTime = new Date().getTime();
-    const elapsedTime = endTime - reqTime;
+    results.appendChild(numberOfResults);
     // Display server response time
+    const resTime = new Date().getTime();
+    const elapsedTime = resTime - reqTime;
     const serverResponseTime = document.createElement('h5');
     serverResponseTime.innerHTML = `Server Response Time: ${elapsedTime} ms`;
     results.appendChild(serverResponseTime);
+    // Display common author
     const allAuthors = Bookdata.items.flatMap(book => book.volumeInfo.authors || []);
-            const commonAuthor = findMostFrequent(allAuthors);
-        
-            // Display common author
-            const commonAuthorElement = document.createElement('h5');
-            commonAuthorElement.innerHTML = `Common Author: ${commonAuthor}`;
-            results.appendChild(commonAuthorElement);
-    //const serverresponse = document.createElement('h5');
-    //serverresponse.innerHTML = `Server Response Time: ' + ${elapsedTime} + ms`;
-    results.appendChild(numberOfResults);
+    const commonAuthor = findMostFrequent(allAuthors);
+    const commonAuthorElement = document.createElement('h5');
+    commonAuthorElement.innerHTML = `Common Author: ${commonAuthor}`;
+    results.appendChild(commonAuthorElement);
+    
+    //Display Books
     const bookItems = Bookdata.items;
     if (Bookdata && Bookdata.totalItems > 0) {
         bookItems.forEach(book => {
@@ -111,11 +97,6 @@ function displayResults(Bookdata) {
 
             bookThumbnail.addEventListener('click', () => displayDescription(bookDescription));
 
-            
-        
-            // Extracting common author from all books
-            
-
             bookContainer.appendChild(bookThumbnail);
             bookContainer.appendChild(bookTitle);
             bookContainer.appendChild(bookAuthors);
@@ -132,6 +113,7 @@ function displayResults(Bookdata) {
     }
 }
 
+//function to display the description
 function displayDescription(bookDescription) {
     if (bookDescription.style.display === 'none') {
         bookDescription.style.display = 'block';
@@ -140,6 +122,7 @@ function displayDescription(bookDescription) {
         bookDescription.style.display = 'none';
     }
 }
+//function to get the common author
 function findMostFrequent(arr) {
     if (arr.length === 0) return 'Unknown';
     const counts = {};
